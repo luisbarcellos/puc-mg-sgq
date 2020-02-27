@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  db-sgq:
+    image: postgres:10.4
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - db_data:/var/lib/postgreSQL
+    restart: always
+    environment:
+      POSTGRES_ROOT_PASSWORD: postgres
+      POSTGRES_DB: db-sgq
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: sgq123
+    networks:
+      - backend
+
+  incidente-problema-service:
+    build: ./incidente-problema-service
+    depends_on:
+      - db-sgq
+    ports:
+      - "8080:8080"
+    restart: always
+    environment:
+      TCC_DB_HOST: jdbc:postgresql://db-sgq:5432/db-sgq
+      TCC_DB_USER: postgres
+      TCC_DB_PASSWORD: sgq123
+      APP_NAME: incidente-problema-service
+    networks:
+      - backend
+volumes:
+  db_data:
+
+### Networks Setup ############################################
+networks:
+  backend:
+    driver: "bridge"
