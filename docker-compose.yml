@@ -18,9 +18,10 @@ services:
       - backend
 
   incidente-problema-service:
-    build: ./incidente-problema-service
     depends_on:
       - db-sgq
+    # build: ./incidente-problema-service  #Uso local
+    image: luisbarcellos/incidente-problema-service:latest
     ports:
       - "8080:8080"
     restart: always
