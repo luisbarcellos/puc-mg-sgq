@@ -1,66 +1,21 @@
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item active" aria-current="page">Gerenciamento de produtos</li>
-  </ol>
-</nav>
-<div class="container">
-  <div class="card list-produto">
-    <h5 class="card-header">Lista de produtos</h5>
-    <div class="card-body">
-      <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">IdProduto</th>
-              <th scope="col">Nome</th>
-              <th scope="col">Tipo</th>
-              <th scope="col">Descricao</th>
-              <th scope="col">Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let produto of produtos">
-              <td>{{produto.idProduto}}</td>
-              <td>{{produto.nome}}</td>
-              <td>{{produto.tipo}}</td>
-              <td>{{produto.descricao}}</td>
-              <td>
-                <button type="button" class="btn btn-warning btn-sm" (click)="editProduto(produto)">Editar</button>
-                <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deleteProduto(produto)">Deletar</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-    </div>
-  </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" routerLink="">Menu</a>
+  <button class="navbar-toggler" type="button" (click)="toggleNavbar()" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-  <div class="card add-produto">
-      <h5 class="card-header">Adicionar/Atualizar produto</h5>
-      <div class="card-body">
-          <form id="add-form" (ngSubmit)="f.form.valid && saveProduto(f)" #f="ngForm" novalidate>
-            <div class="form-group">
-                <label for="model">Nome</label>
-                <input type="text" [(ngModel)]="produto.nome" id="model" name="model" #model="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && model.invalid }" placeholder="Digite o nome">
-                <div *ngIf="f.submitted && model.invalid" class="invalid-feedback">
-                    <div *ngIf="model.errors.required">Nome é obrigatório</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="color">Tipo</label>
-                <input type="text" [(ngModel)]="produto.tipo" id="color" name="color" #color="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && color.invalid }" placeholder="Digite o tipo">
-                <div *ngIf="f.submitted && color.invalid" class="invalid-feedback">
-                    <div *ngIf="color.errors.required">Tipo é obrigatório</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="price">Descricao</label>
-                <input type="text" [(ngModel)]="produto.descricao" id="price" name="price" #price="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && price.invalid }" placeholder="Digite a descrição">
-                <div *ngIf="f.submitted && price.invalid" class="invalid-feedback">
-                    <div *ngIf="price.errors.required">Descrição é obrigatório</div>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary btn-add-produto">Salvar</button>
-            <button type="reset" class="btn btn-secondary btn-add-produto" (click)="cleanForm(f)">Cancelar</button>
-          </form>
-      </div>
-    </div>
+  <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="" routerLinkActive="active">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="produto" routerLinkActive="active">Produto</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
 </div>
