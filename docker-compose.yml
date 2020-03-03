@@ -17,9 +17,18 @@ services:
     networks:
       - backend
 
+  mock-service:
+    image: luisbarcellos/mock-service:latest
+    ports:
+      - "8081:8081"
+    restart: always
+    networks:
+      - backend
+
   incidente-problema-service:
     depends_on:
       - db-sgq
+      - mock-service
     # build: ./incidente-problema-service  #Uso local
     image: luisbarcellos/incidente-problema-service:latest
     ports:

@@ -3,6 +3,7 @@ package br.com.sgq.handler;
 
 import br.com.sgq.exception.NotFoundException;
 import br.com.sgq.exception.StandardError;
+import br.com.sgq.exception.ValidacaoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -33,5 +34,17 @@ public class CustomExceptionHandler {
                         .message(ex.getLocalizedMessage())
                         .error(HttpStatus.BAD_REQUEST.name())
                         .build());
+    }
+
+    @ExceptionHandler(ValidacaoException.class)
+    public ResponseEntity<StandardError> validacaoException(ValidacaoException e) {
+        return new ResponseEntity<>(
+                StandardError.builder()
+                        .timestamp(LocalDateTime.now())
+                        .status(HttpStatus.BAD_REQUEST.value())
+                        .message(e.getLocalizedMessage())
+                        .error("Validacao")
+                        .build(),
+                HttpStatus.BAD_REQUEST);
     }
 }

@@ -43,17 +43,6 @@ CREATE TABLE public.nao_conformidade (
 	CONSTRAINT nao_conformidade_problema_fk FOREIGN KEY (id_problema) REFERENCES problema(id_problema)
 );
 
-CREATE TABLE public.norma (
-	id_norma serial NOT NULL,
-	tipo varchar NOT NULL,
-	descricao varchar NULL,
-	data_inclusao date NOT NULL,
-	impacto_ergonomia varchar NULL,
-	id_nao_conformidade int4 NULL,
-	CONSTRAINT norma_pk PRIMARY KEY (id_norma),
-	CONSTRAINT norma_fk FOREIGN KEY (id_nao_conformidade) REFERENCES nao_conformidade(id_nao_conformidade)
-);
-
 CREATE TABLE public.problema_incidente (
 	id_problema int4 NOT NULL,
 	id_incidente int4 NOT NULL,

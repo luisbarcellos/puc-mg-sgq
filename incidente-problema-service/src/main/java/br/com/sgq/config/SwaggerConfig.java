@@ -3,6 +3,7 @@ package br.com.sgq.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -19,11 +20,11 @@ import java.util.Set;
 public class SwaggerConfig {
 
     @Bean
-    public Docket api() {
+    public Docket apiIncidente() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("br.com.sgq.incidente.v1.contract"))
-                .paths(PathSelectors.regex("/.*"))
+                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
+                .paths(PathSelectors.any())
                 .build()
                 .consumes(getContentType())
                 .produces(getContentType())
