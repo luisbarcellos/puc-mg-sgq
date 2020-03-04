@@ -9,7 +9,6 @@ import { ProdutoService } from '../services/produto.service';
   styleUrls: ['./produto.component.css']
 })
 export class ProdutoComponent implements OnInit {
-
   produto = {} as Produto;
   produtos: Produto[];
 
@@ -22,7 +21,7 @@ export class ProdutoComponent implements OnInit {
   // defini se um produto será criado ou atualizado
   saveProduto(form: NgForm) {
     if (this.produto.idProduto !== undefined) {
-      this.produtoService.updateCar(this.produto).subscribe(() => {
+      this.produtoService.updateProduto(this.produto).subscribe(() => {
         this.cleanForm(form);
       });
     } else {

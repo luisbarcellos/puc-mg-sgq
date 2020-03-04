@@ -1,0 +1,141 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Gerenciamento de incidentes</li>
+  </ol>
+</nav>
+<div class="container">
+  <div class="card list-incidente">
+    <h5 class="card-header">Lista de incidentes</h5>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">IdIncidente</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Gravidade</th>
+            <th scope="col">Descricao</th>
+            <th scope="col">Data da inclusão</th>
+            <!-- <th scope="col">IdProduto</th> -->
+            <th scope="col">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let incidente of incidentes">
+            <td>{{incidente.idIncidente}}</td>
+            <td>{{incidente.tipo}}</td>
+            <td>{{incidente.gravidade}}</td>
+            <td>{{incidente.descricao}}</td>
+            <td>{{incidente.dataInclusao}}</td>
+            <td>
+              <button type="button" class="btn btn-info btn-sm" (click)="frame.show(); getProdutos(incidente);">Ver
+                produtos</button>
+              <button type="button" class="btn btn-warning btn-sm ml-1"
+                (click)="editIncidente(incidente)">Editar</button>
+              <button type="button" class="btn btn-danger btn-sm ml-1"
+                (click)="deleteIncidente(incidente)">Deletar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-lg modal-info" role="document">
+      <!--Content-->
+      <div class="modal-content">
+        <!--Header-->
+        <div class="modal-header">
+          <p class="heading lead">Lista de produtos</p>
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
+            <span aria-hidden="true" class="white-text">&times;</span>
+          </button>
+        </div>
+
+        <!--Body-->
+        <div class="modal-body">
+          <div class="text-center">
+            <mdb-icon fas icon="check" size="4x" class="mb-3 animated rotateIn"></mdb-icon>
+
+            <div class="modal-body">
+              <div class="card list-produto">
+
+                <div class="card-body">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">IdIncidente</th>
+                        <th scope="col">IdProduto</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Descricao</th>
+                        <th scope="col">Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let produto of produtos">
+                        <td>{{incidenteUpdate.idIncidente}}</td>
+                        <td>{{produto.idProduto}}</td>
+                        <td>{{produto.nome}}</td>
+                        <td>{{produto.tipo}}</td>
+                        <td>{{produto.descricao}}</td>
+                        <td>
+                          <button type="button" class="btn btn-danger btn-sm ml-1"
+                            (click)="deleteProduto(produto)">Remover</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--Footer-->
+
+      </div>
+      <!--/.Content-->
+    </div>
+  </div>
+
+  <div class="card add-incidente">
+    <h5 class="card-header">Adicionar/Atualizar incidente</h5>
+    <div class="card-body">
+      <form id="add-form" (ngSubmit)="f.form.valid && saveIncidente(f)" #f="ngForm" novalidate>
+        <div class="form-group">
+          <label for="model">Tipo</label>
+          <input type="text" [(ngModel)]="incidente.tipo" id="model" name="model" #model="ngModel" required
+            class="form-control" [ngClass]="{ 'is-invalid': f.submitted && model.invalid }" placeholder="Digite o tipo">
+          <div *ngIf="f.submitted && model.invalid" class="invalid-feedback">
+            <div *ngIf="model.errors.required">Tipo é obrigatório</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="color">Tipo</label>
+          <input type="text" [(ngModel)]="incidente.gravidade" id="color" name="color" #color="ngModel" required
+            class="form-control" [ngClass]="{ 'is-invalid': f.submitted && color.invalid }"
+            placeholder="Digite a gravidade">
+          <div *ngIf="f.submitted && color.invalid" class="invalid-feedback">
+            <div *ngIf="color.errors.required">Gravidade é obrigatório</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="price">Descricao</label>
+          <input type="text" [(ngModel)]="incidente.descricao" id="price" name="price" #price="ngModel" required
+            class="form-control" [ngClass]="{ 'is-invalid': f.submitted && price.invalid }"
+            placeholder="Digite a descrição">
+          <div *ngIf="f.submitted && price.invalid" class="invalid-feedback">
+            <div *ngIf="price.errors.required">Descrição é obrigatório</div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-add-incidente">Salvar</button>
+        <button type="reset" class="btn btn-secondary btn-add-incidente" (click)="cleanForm(f)">Cancelar</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div>

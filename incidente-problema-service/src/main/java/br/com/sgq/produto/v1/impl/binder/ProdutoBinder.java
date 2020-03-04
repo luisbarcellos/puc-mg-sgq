@@ -40,7 +40,6 @@ public class ProdutoBinder {
                 .nome(produtoModel.getNome())
                 .tipo(produtoModel.getTipo())
                 .descricao(produtoModel.getDescricao())
-                .incidentes(IncidenteBinder.bindToOutputListSemProdutoNoIncidente(produtoModel.getIncidenteProblemaModelList()))
                 .build();
     }
 
@@ -50,7 +49,6 @@ public class ProdutoBinder {
                 .nome(produtoModel.getNome())
                 .tipo(produtoModel.getTipo())
                 .descricao(produtoModel.getDescricao())
-                .incidentes(IncidenteBinder.bindToOutputListSemProdutoNoIncidente(produtoModel.getIncidenteProblemaModelList()))
                 .build();
     }
 

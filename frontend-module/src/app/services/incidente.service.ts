@@ -3,13 +3,13 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { Produto } from '../models/produto';
+import { Incidente } from '../models/incidente';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProdutoService {
-
-  url = 'http://localhost:8080/incidente-problema-service/v1/produtos';
+export class IncidenteService {
+  url = 'http://localhost:8080/incidente-problema-service/v1/incidentes';
 
   // injetando o HttpClient
   constructor(private httpClient: HttpClient) { }
@@ -19,44 +19,53 @@ export class ProdutoService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json'})
   }
 
-  // Obtem todos os produtos
-  getProdutos(): Observable<Produto[]> {
-    return this.httpClient.get<Produto[]>(this.url)
-      .pipe(
-        retry(2),
-        catchError(this.handleError))
-  }
-
-  // Obtem um produto pelo id
-  getProdutoById(id: number): Observable<Produto> {
-    return this.httpClient.get<Produto>(this.url + '/' + id)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      )
-  }
-
-  // salva um produto
-  saveProduto(produto: Produto): Observable<Produto> {
-    return this.httpClient.post<Produto>(this.url, JSON.stringify(produto), this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      )
-  }
-
-  // atualiza um produto
-  updateProduto(produto: Produto): Observable<Produto> {
-    return this.httpClient.put<Produto>(this.url + '/' + produto.idProduto, JSON.stringify(produto), this.httpOptions)
+  // Remove um produto do incidente
+  deleteProduto(incidente: Incidente, produto: Produto) {
+    return this.httpClient.delete<Incidente>(this.url + '/' + incidente.idIncidente + '/produto/' + produto.idProduto, this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.handleError)
       )
   }
 
-  // deleta um produto
-  deleteProduto(produto: Produto) {
-    return this.httpClient.delete<Produto>(this.url + '/' + produto.idProduto, this.httpOptions)
+  // Obtem todos os incidentes
+  getIncidentes(): Observable<Incidente[]> {
+    return this.httpClient.get<Incidente[]>(this.url)
+      .pipe(
+        retry(2),
+        catchError(this.handleError))
+  }
+
+  // Obtem um incidente pelo id
+  getIncidenteById(id: number): Observable<Incidente> {
+    return this.httpClient.get<Incidente>(this.url + '/' + id)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      )
+  }
+
+  // salva um incidente
+  saveIncidente(incidente: Incidente): Observable<Incidente> {
+    return this.httpClient.post<Incidente>(this.url, JSON.stringify(incidente), this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      )
+  }
+
+  // atualiza um incidente
+  updateIncidente(incidente: Incidente): Observable<Incidente> {
+    return this.httpClient.put<Incidente>(this.url + '/' + incidente.idIncidente, JSON.stringify(incidente), this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
+  }
+
+  // deleta um incidente
+  deleteIncidente(incidente: Incidente) {
+    return this.httpClient.delete<Incidente>(this.url + '/' + incidente.idIncidente, this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.handleError)
