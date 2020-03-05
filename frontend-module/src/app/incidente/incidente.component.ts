@@ -4,6 +4,7 @@ import { IncidenteService } from '../services/incidente.service';
 import { NgForm } from '@angular/forms';
 import { Produto } from '../models/produto';
 import { MdbTableDirective } from 'angular-bootstrap-md';
+import { ProdutoService } from '../services/produto.service';
 
 @Component({
   selector: 'app-incidente',
@@ -23,7 +24,7 @@ export class IncidenteComponent implements OnInit {
   produto = {} as Produto;
   produtos: Produto[]
 
-  constructor(private incidenteService: IncidenteService) {} 
+  constructor(private incidenteService: IncidenteService, private produtoService: ProdutoService) {} 
   @HostListener('input') oninput() {
     this.pesquisarIncidentes();
   }
@@ -66,6 +67,27 @@ export class IncidenteComponent implements OnInit {
   getProdutos(el: Incidente) {
     this.incidenteUpdate = this.incidentes.find(inc => inc.idIncidente == el.idIncidente)
     this.produtos = this.incidenteUpdate.produtos;
+  }
+
+  // busca todos produtos para incluir em um incidente
+  getProdutosAll(el: Incidente) {
+    this.incidenteUpdate = this.incidentes.find(inc => inc.idIncidente == el.idIncidente)
+    this.produtoService.getProdutos().subscribe((produtos: Produto[]) => {
+      this.produtos = produtos.filter( el => {
+        return !this.incidenteUpdate.produtos.some( f => {
+          return f.idProduto === el.idProduto;
+        });
+      });
+    });
+  }
+
+  // Adiciona um produto no incidente
+  updateProduto(produto: Produto, incidente: Incidente) {
+    this.incidenteService.updateProduto(incidente.idIncidente, produto.idProduto).subscribe(() => {
+      
+      this.incidenteUpdate.produtos.push(produto);
+      this.produtos = this.produtos.filter(prod => prod != produto);
+    });
   }
 
   // deleta um produto

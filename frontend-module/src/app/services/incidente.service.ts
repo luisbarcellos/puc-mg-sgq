@@ -63,6 +63,15 @@ export class IncidenteService {
       )
   }
 
+  // atualiza um produto
+  updateProduto(idIncidente: number, idProduto: number): Observable<Incidente> {
+    return this.httpClient.patch<Incidente>(this.url + '/' + idIncidente + '/produto/' + idProduto, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
+  }
+
   // deleta um incidente
   deleteIncidente(idIncidente: number) {
     return this.httpClient.delete<Incidente>(this.url + '/' + idIncidente, this.httpOptions)

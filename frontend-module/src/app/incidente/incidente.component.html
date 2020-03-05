@@ -11,13 +11,7 @@
       <div class="row">
         <div class="col-md-12 mx-auto">
           <div class="md-form">
-            <input
-              type="text"
-              [(ngModel)]="searchText"
-              class="form-control"
-              id="search"
-              mdbInput
-            />
+            <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput />
             <label for="search">Pesquisa</label>
           </div>
         </div>
@@ -42,13 +36,13 @@
             <td>{{el.descricao}}</td>
             <td>{{el.dataInclusao}}</td>
 
-            <td> 
-              <button type="button" class="btn btn-info btn-sm" 
-                (click)="frame.show(); getProdutos(el);">Ver produtos</button>
-              <button type="button" class="btn btn-warning btn-sm ml-1" 
-                (click)="editIncidente(el)">Editar</button>
-              <button type="button" class="btn btn-danger btn-sm ml-1" 
-                (click)="deleteIncidente(el)">Deletar</button>
+            <td>
+              <button type="button" class="btn btn-success btn-sm" (click)="frameAddProduto.show(); getProdutosAll(el);">Adicionar
+                produtos</button>
+              <button type="button" class="btn btn-info btn-sm ml-1" (click)="frame.show(); getProdutos(el);">Ver
+                produtos</button>
+              <button type="button" class="btn btn-warning btn-sm ml-1" (click)="editIncidente(el)">Editar</button>
+              <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deleteIncidente(el)">Deletar</button>
             </td>
           </tr>
         </tbody>
@@ -56,12 +50,68 @@
     </div>
   </div>
 
+  <!-- Início Div para Mostrar produtos para adicionar em um incidente -->
+  <div mdbModal #frameAddProduto="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-lg modal-info" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <p class="heading lead">Lista de produtos</p>
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frameAddProduto.hide()">
+            <span aria-hidden="true" class="white-text">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="text-center">
+            <mdb-icon fas icon="check" size="4x" class="mb-3 animated rotateIn"></mdb-icon>
+
+            <div class="modal-body">
+              <div class="card list-produto">
+
+                <div class="card-body">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">IdIncidente</th>
+                        <th scope="col">IdProduto</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Descricao</th>
+                        <th scope="col">Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let produto of produtos">
+                        <td>{{incidenteUpdate.idIncidente}}</td>
+                        <td>{{produto.idProduto}}</td>
+                        <td>{{produto.nome}}</td>
+                        <td>{{produto.tipo}}</td>
+                        <td>{{produto.descricao}}</td>
+                        <td>
+                          <button type="button" class="btn btn-info btn-sm ml-1"
+                            (click)="updateProduto(produto, incidenteUpdate)">Adicionar</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- Fim Div para Mostrar produtos para adicionar em um incidente -->
+
+  <!-- Início Div para Mostrar produtos de um incidente -->
   <div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
     aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-notify modal-lg modal-info" role="document">
-      <!--Content-->
       <div class="modal-content">
-        <!--Header-->
         <div class="modal-header">
           <p class="heading lead">Lista de produtos</p>
 
@@ -70,7 +120,6 @@
           </button>
         </div>
 
-        <!--Body-->
         <div class="modal-body">
           <div class="text-center">
             <mdb-icon fas icon="check" size="4x" class="mb-3 animated rotateIn"></mdb-icon>
@@ -110,13 +159,12 @@
           </div>
         </div>
 
-        <!--Footer-->
-
       </div>
-      <!--/.Content-->
     </div>
   </div>
+  <!-- Fim Div para Mostrar produtos de um incidente -->
 
+  <!-- Div para Cadastrar e Atualizar incidentes -->
   <div class="card add-incidente">
     <h5 class="card-header">Adicionar/Atualizar incidente</h5>
     <div class="card-body">
