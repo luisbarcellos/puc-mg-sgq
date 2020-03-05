@@ -7,7 +7,23 @@
   <div class="card list-incidente">
     <h5 class="card-header">Lista de incidentes</h5>
     <div class="card-body">
-      <table class="table">
+
+      <div class="row">
+        <div class="col-md-12 mx-auto">
+          <div class="md-form">
+            <input
+              type="text"
+              [(ngModel)]="searchText"
+              class="form-control"
+              id="search"
+              mdbInput
+            />
+            <label for="search">Pesquisa</label>
+          </div>
+        </div>
+      </div>
+
+      <table mdbTable class="table table-striped">
         <thead>
           <tr>
             <th scope="col">IdIncidente</th>
@@ -15,24 +31,30 @@
             <th scope="col">Gravidade</th>
             <th scope="col">Descricao</th>
             <th scope="col">Data da inclusão</th>
-            <!-- <th scope="col">IdProduto</th> -->
             <th scope="col">Ações</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let incidente of incidentes">
+          <tr *ngFor="let el of elements; let i = index">
+            <td>{{el.idIncidente}}</td>
+            <td>{{el.tipo}}</td>
+            <td>{{el.gravidade}}</td>
+            <td>{{el.descricao}}</td>
+            <td>{{el.dataInclusao}}</td>
+
+          <!-- <tr *ngFor="let incidente of incidentes">
             <td>{{incidente.idIncidente}}</td>
             <td>{{incidente.tipo}}</td>
             <td>{{incidente.gravidade}}</td>
             <td>{{incidente.descricao}}</td>
-            <td>{{incidente.dataInclusao}}</td>
-            <td>
-              <button type="button" class="btn btn-info btn-sm" (click)="frame.show(); getProdutos(incidente);">Ver
-                produtos</button>
-              <button type="button" class="btn btn-warning btn-sm ml-1"
-                (click)="editIncidente(incidente)">Editar</button>
-              <button type="button" class="btn btn-danger btn-sm ml-1"
-                (click)="deleteIncidente(incidente)">Deletar</button>
+            <td>{{incidente.dataInclusao}}</td> -->
+            <td> 
+              <button type="button" class="btn btn-info btn-sm" 
+                (click)="frame.show(); getProdutos(el);">Ver produtos</button>
+              <button type="button" class="btn btn-warning btn-sm ml-1" 
+                (click)="editIncidente(el)">Editar</button>
+              <button type="button" class="btn btn-danger btn-sm ml-1" 
+                (click)="deleteIncidente(el)">Deletar</button>
             </td>
           </tr>
         </tbody>
@@ -63,7 +85,7 @@
               <div class="card list-produto">
 
                 <div class="card-body">
-                  <table class="table">
+                  <table class="table table-striped">
                     <thead>
                       <tr>
                         <th scope="col">IdIncidente</th>
@@ -137,5 +159,4 @@
     </div>
   </div>
 </div>
-
 <div>

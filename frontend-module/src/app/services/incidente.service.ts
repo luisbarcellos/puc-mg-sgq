@@ -64,8 +64,8 @@ export class IncidenteService {
   }
 
   // deleta um incidente
-  deleteIncidente(incidente: Incidente) {
-    return this.httpClient.delete<Incidente>(this.url + '/' + incidente.idIncidente, this.httpOptions)
+  deleteIncidente(idIncidente: number) {
+    return this.httpClient.delete<Incidente>(this.url + '/' + idIncidente, this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.handleError)
