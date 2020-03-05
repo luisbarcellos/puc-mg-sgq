@@ -7,7 +7,23 @@
     <div class="card list-produto">
       <h5 class="card-header">Lista de produtos</h5>
       <div class="card-body">
-        <table class="table">
+
+        <div class="row">
+          <div class="col-md-12 mx-auto">
+            <div class="md-form">
+              <input
+                type="text"
+                [(ngModel)]="searchText"
+                class="form-control"
+                id="search"
+                mdbInput
+              />
+              <label for="search">Pesquisa</label>
+            </div>
+          </div>
+        </div>
+        
+        <table mdbTable class="table table-striped">
             <thead>
               <tr>
                 <th scope="col">IdProduto</th>
@@ -18,14 +34,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let produto of produtos">
-                <td>{{produto.idProduto}}</td>
-                <td>{{produto.nome}}</td>
-                <td>{{produto.tipo}}</td>
-                <td>{{produto.descricao}}</td>
+              <tr *ngFor="let el of elements; let i = index">
+                <td>{{el.idProduto}}</td>
+                <td>{{el.nome}}</td>
+                <td>{{el.tipo}}</td>
+                <td>{{el.descricao}}</td>
                 <td>
-                  <button type="button" class="btn btn-warning btn-sm" (click)="editProduto(produto)">Editar</button>
-                  <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deleteProduto(produto)">Deletar</button>
+                  <button type="button" class="btn btn-warning btn-sm" (click)="editProduto(el)">Editar</button>
+                  <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deleteProduto(el)">Deletar</button>
                 </td>
               </tr>
             </tbody>

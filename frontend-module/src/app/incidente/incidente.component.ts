@@ -23,7 +23,8 @@ export class IncidenteComponent implements OnInit {
   produto = {} as Produto;
   produtos: Produto[]
 
-  constructor(private incidenteService: IncidenteService) {} @HostListener('input') oninput() {
+  constructor(private incidenteService: IncidenteService) {} 
+  @HostListener('input') oninput() {
     this.pesquisarIncidentes();
   }
   ngOnInit() {
