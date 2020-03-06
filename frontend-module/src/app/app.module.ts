@@ -10,13 +10,15 @@ import { FormsModule } from '@angular/forms';
 import { ProdutoComponent } from './produto/produto.component';
 import { HomeComponent } from './home/home.component';
 import { IncidenteComponent } from './incidente/incidente.component';
+import { ProblemaComponent } from './problema/problema.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProdutoComponent,
     HomeComponent,
-    IncidenteComponent
+    IncidenteComponent,
+    ProblemaComponent
   ],
   imports: [
     BrowserModule,

@@ -37,12 +37,25 @@
             <td>{{el.dataInclusao}}</td>
 
             <td>
-              <button type="button" class="btn btn-success btn-sm" (click)="frameAddProduto.show(); getProdutosAll(el);">Adicionar
-                produtos</button>
-              <button type="button" class="btn btn-info btn-sm ml-1" (click)="frame.show(); getProdutos(el);">Ver
-                produtos</button>
-              <button type="button" class="btn btn-warning btn-sm ml-1" (click)="editIncidente(el)">Editar</button>
-              <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deleteIncidente(el)">Deletar</button>
+              <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                <button mdbBtn type="button" color="warning" class="waves-light btn-sm" mdbWavesEffect
+                  (click)="editIncidente(el)">Editar</button>
+                <button mdbBtn type="button" color="danger" class="waves-light btn-sm ml-2" mdbWavesEffect
+                  (click)="deleteIncidente(el)">Deletar</button>
+
+                <div class="btn-group" mdbDropdown>
+                  <button mdbDropdownToggle type="button" mdbBtn color="info" class="dropdown-toggle waves-light btn-sm ml-2"
+                    mdbWavesEffect>
+                    Produtos
+                  </button>
+
+                  <div class="dropdown-menu dropdown-primary">
+                    <a class="dropdown-item btn-success btn-sm"
+                      (click)="frameAddProduto.show(); getProdutosAll(el);">Adicionar</a>
+                    <a class="dropdown-item btn-blue-grey btn-sm" (click)="frame.show(); getProdutos(el);">Ver</a>
+                  </div>
+                </div>
+              </div>
             </td>
           </tr>
         </tbody>

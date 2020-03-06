@@ -1,0 +1,19 @@
+.container {
+    margin-top: 30px;
+}
+
+.add-problema {
+    margin-bottom: 30px;
+}
+
+.list-problema {
+    margin-bottom: 50px;
+}
+
+.list-incidente {
+    margin-bottom: 50px;
+}
+
+.btn-add-problema {
+    margin-right: 10px;
+}
