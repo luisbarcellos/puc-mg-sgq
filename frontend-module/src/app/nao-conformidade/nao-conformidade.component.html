@@ -1,0 +1,337 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Gerenciamento de não conformidades</li>
+    </ol>
+</nav>
+<div class="container">
+    <div class="card list-nao-conformidade">
+        <h5 class="card-header">Lista de não conformidades</h5>
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-md-12 mx-auto">
+                    <div class="md-form">
+                        <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput />
+                        <label for="search">Pesquisa</label>
+                    </div>
+                </div>
+            </div>
+
+            <table mdbTable class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">IdNaoConformidade</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Descricao</th>
+                        <th scope="col">IdProblema</th>
+                        <th scope="col">IdRiscoAcidente</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let el of elements; let i = index">
+                        <td>{{el.idNaoConformidade}}</td>
+                        <td>{{el.tipo}}</td>
+                        <td>{{el.descricao}}</td>
+                        <td>{{el.idProblema}}</td>
+                        <td>{{el.idRiscoAcidente}}</td>
+                    
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                <button mdbBtn type="button" color="warning" class="waves-light btn-sm" mdbWavesEffect 
+                                    (click)="editNaoConformidade(el)">Editar</button>
+                                <button mdbBtn type="button" color="danger" class="waves-light btn-sm ml-2" mdbWavesEffect
+                                    (click)="deleteNaoConformidade(el);">Deletar</button>
+                              
+                                <div class="btn-group" mdbDropdown>
+                                    <button mdbDropdownToggle type="button" mdbBtn color="info" class="dropdown-toggle waves-light btn-sm ml-2" mdbWavesEffect>
+                                        Problema
+                                    </button>
+                              
+                                    <div class="dropdown-menu dropdown-primary">
+                                        <a class="dropdown-item btn-success btn-sm" 
+                                            (click)="frameAddProblema.show(); getProblemasAll(el);">Adicionar</a>
+                                        <a class="dropdown-item btn-blue-grey btn-sm" 
+                                            (click)="frameProblema.show(); getProblema(el);">Ver</a>
+                                    </div>
+                                </div>
+
+                                <div class="btn-group" mdbDropdown>
+                                    <button mdbDropdownToggle type="button" mdbBtn color="info" class="dropdown-toggle waves-light btn-sm ml-2" mdbWavesEffect>
+                                        Risco acidente
+                                    </button>
+                              
+                                    <div class="dropdown-menu dropdown-primary">
+                                        <a class="dropdown-item btn-success btn-sm" 
+                                            (click)="frameAddRiscoAcidente.show(); getRiscoAcidentesAll(el);">Adicionar</a>
+                                        <a class="dropdown-item btn-blue-grey btn-sm" 
+                                            (click)="frame.show(); getRiscoAcidente(el);">Ver</a>
+                                    </div>
+                                </div>
+                              </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Início Div para Mostrar risco de acidente para adicionar em uma Não conformidade -->
+    <div mdbModal #frameAddRiscoAcidente="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-notify modal-lg modal-info" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="heading lead">Lista de riscos de acidente</p>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        (click)="frameAddRiscoAcidente.hide()">
+                        <span aria-hidden="true" class="white-text">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="text-center">
+                        <mdb-icon fas icon="check" size="4x" class="mb-3 animated rotateIn"></mdb-icon>
+
+                        <div class="modal-body">
+                            <div class="card list-incidente">
+
+                                <div class="card-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">IdRiscoAcidente</th>
+                                                <th scope="col">Tipo</th>
+                                                <th scope="col">Descricao</th>
+                                                <th scope="col">Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let riscoAcidente of riscoAcidentes">
+                                                <td>{{naoConformidadeUpdate.idNaoConformidade}}</td>
+                                                <td>{{riscoAcidente.idRiscoAcidente}}</td>
+                                                <td>{{riscoAcidente.tipo}}</td>
+                                                <td>{{riscoAcidente.descricao}}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-info btn-sm ml-1"
+                                                        (click)="updateRiscoAcidente(riscoAcidente, naoConformidadeUpdate)">Adicionar</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Fim Div para Mostrar riscos de acidente para adicionar em uma não conformidade -->
+
+    <!-- Início Div para Mostrar problemas para adicionar em uma Não conformidade -->
+    <div mdbModal #frameAddProblema="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-notify modal-lg modal-info" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="heading lead">Lista de problemas</p>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        (click)="frameAddProblema.hide()">
+                        <span aria-hidden="true" class="white-text">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="text-center">
+                        <mdb-icon fas icon="check" size="4x" class="mb-3 animated rotateIn"></mdb-icon>
+
+                        <div class="modal-body">
+                            <div class="card list-incidente">
+
+                                <div class="card-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">IdNaoConformidade</th>
+                                                <th scope="col">IdProblema</th>
+                                                <th scope="col">Tipo</th>
+                                                <th scope="col">Gravidade</th>
+                                                <th scope="col">Descricao</th>
+                                                <th scope="col">Data de inclusão</th>
+                                                <th scope="col">Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let problema of problemas">
+                                                <td>{{naoConformidadeUpdate.idNaoConformidade}}</td>
+                                                <td>{{problema.idProblema}}</td>
+                                                <td>{{problema.tipo}}</td>
+                                                <td>{{problema.gravidade}}</td>
+                                                <td>{{problema.descricao}}</td>
+                                                <td>{{problema.dataInclusao}}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-info btn-sm ml-1"
+                                                        (click)="updateProblema(problema, naoConformidadeUpdate)">Adicionar</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Fim Div para Mostrar problemas para adicionar em uma não conformidade -->
+
+    <!-- Início Div para Mostrar risco de acidente de uma não conformidade -->
+    <div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-notify modal-lg modal-info" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="heading lead">Risco de acidente</p>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
+                        <span aria-hidden="true" class="white-text">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="text-center">
+                        <mdb-icon fas icon="check" size="4x" class="mb-3 animated rotateIn"></mdb-icon>
+
+                        <div class="modal-body">
+                            <div class="card list-risco-acidente">
+
+                                <div class="card-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">IdNaoConformidade</th>
+                                                <th scope="col">IdRiscoAcidente</th>
+                                                <th scope="col">Tipo</th>
+                                                <th scope="col">Descricao</th>
+                                                <th scope="col">Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngIf="riscoAcidente">
+                                                <td>{{naoConformidadeUpdate.idNaoConformidade}}</td>
+                                                <td>{{riscoAcidente.idRiscoAcidente}}</td>
+                                                <td>{{riscoAcidente.tipo}}</td>
+                                                <td>{{riscoAcidente.descricao}}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger btn-sm ml-1"
+                                                        (click)="deleteRiscoAcidente(riscoAcidente)">Remover</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Fim Div para Mostrar risco de acidente de uma não conformidade -->
+
+    <!-- Início Div para Mostrar um problema de uma não conformidade -->
+    <div mdbModal #frameProblema="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-notify modal-lg modal-info" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="heading lead">Risco de acidente</p>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frameProblema.hide()">
+                        <span aria-hidden="true" class="white-text">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="text-center">
+                        <mdb-icon fas icon="check" size="4x" class="mb-3 animated rotateIn"></mdb-icon>
+
+                        <div class="modal-body">
+                            <div class="card list-risco-acidente">
+
+                                <div class="card-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">IdNaoConformidade</th>
+                                                <th scope="col">IdProblema</th>
+                                                <th scope="col">Tipo</th>
+                                                <th scope="col">Gravidade</th>
+                                                <th scope="col">Descricao</th>
+                                                <th scope="col">Data de Inclusão</th>
+                                                <th scope="col">Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngIf="problema">
+                                                <td>{{naoConformidadeUpdate.idNaoConformidade}}</td>
+                                                <td>{{problema.idProblema}}</td>
+                                                <td>{{problema.tipo}}</td>
+                                                <td>{{problema.gravidade}}</td>
+                                                <td>{{problema.descricao}}</td>
+                                                <td>{{problema.dataInclusao}}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger btn-sm ml-1"
+                                                        (click)="deleteProblema(problema)">Remover</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Fim Div para Mostrar um problema de uma não conformidade -->
+
+    <!-- Div para Cadastrar e Atualizar não conformidades -->
+    <div class="card add-nao-conformidade">
+        <h5 class="card-header">Adicionar/Atualizar não conformidade</h5>
+        <div class="card-body">
+            <form id="add-form" (ngSubmit)="f.form.valid && saveNaoConformidade(f)" #f="ngForm" novalidate>
+                <div class="form-group">
+                    <label for="model">Tipo</label>
+                    <input type="text" [(ngModel)]="naoConformidade.tipo" id="model" name="model" #model="ngModel" required
+                        class="form-control" [ngClass]="{ 'is-invalid': f.submitted && model.invalid }"
+                        placeholder="Digite o tipo">
+                    <div *ngIf="f.submitted && model.invalid" class="invalid-feedback">
+                        <div *ngIf="model.errors.required">Tipo é obrigatório</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="price">Descricao</label>
+                    <input type="text" [(ngModel)]="naoConformidade.descricao" id="price" name="price" #price="ngModel"
+                        required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && price.invalid }"
+                        placeholder="Digite a descrição">
+                    <div *ngIf="f.submitted && price.invalid" class="invalid-feedback">
+                        <div *ngIf="price.errors.required">Descrição é obrigatório</div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-add-nao-conformidade">Salvar</button>
+                <button type="reset" class="btn btn-secondary btn-add-nao-conformidade ml-1" (click)="cleanForm(f)">Cancelar</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div>

@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { MdbTableDirective } from 'angular-bootstrap-md';
 import { RiscoAcidente } from '../models/riscoacidente';
-import { RiscoAcidenteService } from '../risco-acidente.service';
 import { NgForm } from '@angular/forms';
+import { RiscoAcidenteService } from '../services/risco-acidente.service';
 
 @Component({
   selector: 'app-risco-acidente',

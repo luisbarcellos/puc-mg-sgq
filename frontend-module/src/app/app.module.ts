@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { IncidenteComponent } from './incidente/incidente.component';
 import { ProblemaComponent } from './problema/problema.component';
 import { RiscoAcidenteComponent } from './risco-acidente/risco-acidente.component';
+import { NaoConformidadeComponent } from './nao-conformidade/nao-conformidade.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { RiscoAcidenteComponent } from './risco-acidente/risco-acidente.componen
     HomeComponent,
     IncidenteComponent,
     ProblemaComponent,
-    RiscoAcidenteComponent
+    RiscoAcidenteComponent,
+    NaoConformidadeComponent
   ],
   imports: [
     BrowserModule,
