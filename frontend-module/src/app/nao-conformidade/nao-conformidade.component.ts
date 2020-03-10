@@ -8,6 +8,8 @@ import { NaoConformidadeService } from '../services/nao-conformidade.service';
 import { IncidenteService } from '../services/incidente.service';
 import { RiscoAcidenteService } from '../services/risco-acidente.service';
 import { NgForm } from '@angular/forms';
+import { Norma } from '../models/norma';
+import { NormaService } from '../services/norma.service';
 
 @Component({
   selector: 'app-nao-conformidade',
@@ -25,13 +27,16 @@ export class NaoConformidadeComponent implements OnInit {
   naoConformidadeUpdate = {} as NaoConformidade;
   naoConformidades: NaoConformidade[];
   problema = {} as Problema;
-  problemas: Problema[]
+  problemas: Problema[];
   riscoAcidente = {} as RiscoAcidente;
-  riscoAcidentes: RiscoAcidente[]
+  riscoAcidentes: RiscoAcidente[];
+  norma = {} as Norma;
+  normas: Norma[];
 
   constructor(private naoConformidadeService: NaoConformidadeService, 
               private problemaService: ProblemaService, 
-              private riscoAcidenteService: RiscoAcidenteService) { }
+              private riscoAcidenteService: RiscoAcidenteService,
+              private normaService: NormaService) { }
   @HostListener('input') oninput() {
     this.pesquisarNaoConformidades();
   }
@@ -98,6 +103,14 @@ export class NaoConformidadeComponent implements OnInit {
     } else {
       this.riscoAcidentes = []
     }
+  }
+
+  // busca todas normas
+  getNormas() {
+    this.normaService.getNormas().subscribe((normas: Norma[]) => {
+      console.log(normas);
+      this.normas = normas;
+    })
   }
 
   // busca todos problemas para incluir em uma Nao conformidade

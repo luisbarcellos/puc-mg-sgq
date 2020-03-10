@@ -68,6 +68,17 @@
                                             (click)="frame.show(); getRiscoAcidente(el);">Ver</a>
                                     </div>
                                 </div>
+
+                                <div class="btn-group" mdbDropdown>
+                                    <button mdbDropdownToggle type="button" mdbBtn color="info" class="dropdown-toggle waves-light btn-sm ml-2" mdbWavesEffect>
+                                        Normas
+                                    </button>
+                              
+                                    <div class="dropdown-menu dropdown-primary">
+                                        <a class="dropdown-item btn-blue-grey btn-sm" 
+                                            (click)="frameNormas.show(); getNormas();">Ver</a>
+                                    </div>
+                                </div>
                               </div>
                         </td>
                     </tr>
@@ -130,6 +141,59 @@
         </div>
     </div>
     <!-- Fim Div para Mostrar riscos de acidente para adicionar em uma não conformidade -->
+
+    <!-- Início Div para Mostrar normas -->
+    <div mdbModal #frameNormas="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-notify modal-lg modal-info" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="heading lead">Lista de normas</p>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        (click)="frameNormas.hide()">
+                        <span aria-hidden="true" class="white-text">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="text-center">
+                        <mdb-icon fas icon="check" size="4x" class="mb-3 animated rotateIn"></mdb-icon>
+
+                        <div class="modal-body">
+                            <div class="card list-norma">
+
+                                <div class="card-body">
+                                    <table class="table table-striped" mdbTable mdbTableScroll scrollY="true" maxHeight="300" bordered="true">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">IdNorma</th>
+                                                <th scope="col">Tipo</th>
+                                                <th scope="col">Descricao</th>
+                                                <th scope="col">Impacto ergonomia</th>
+                                                <th scope="col">Data de inclusão</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let norma of normas">
+                                                <td>{{norma.idNorma}}</td>
+                                                <td>{{norma.tipo}}</td>
+                                                <td>{{norma.descricao}}</td>
+                                                <td>{{norma.impactoErgonomia}}</td>
+                                                <td>{{norma.dataInclusao}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Fim Div para Mostrar normas -->
 
     <!-- Início Div para Mostrar problemas para adicionar em uma Não conformidade -->
     <div mdbModal #frameAddProblema="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
