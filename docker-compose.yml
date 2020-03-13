@@ -41,6 +41,14 @@ services:
       APP_NAME: incidente-problema-service
     networks:
       - backend
+
+  web:
+    build: ./frontend-module  #Uso local
+    # image: luisbarcellos/frontend-module:latest
+    ports:
+      - "4200:4200"
+    networks:
+      - backend
 volumes:
   db_data:
 
