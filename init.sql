@@ -58,3 +58,40 @@ CREATE TABLE public.incidente_produto (
 	CONSTRAINT incidente_fk FOREIGN KEY (id_incidente) REFERENCES incidente(id_incidente),
 	CONSTRAINT produto_fk FOREIGN KEY (id_produto) REFERENCES produto(id_produto)
 );
+
+INSERT INTO public.produto (nome,tipo,descricao) VALUES
+('Air Bag','Motorista','Modelo Astra 2004/2009')
+,('Rádio Aiko','Central multimídia','Honda Civic 2008/2011')
+,('Cinto de segurança','Traseiro esquero','Veículos da Chevrolet')
+,('Vidro','Dianteiro','Parabrisa Gol G5')
+;
+
+INSERT INTO public.incidente (tipo,gravidade,descricao,data_inclusao) VALUES
+('Vidro trincado','grave','Vidro trinca ao manuseio.','2020-03-16')
+,('Air Bag estoura','Grave','Air Bag estoura ao embalar.','2020-03-16')
+;
+
+INSERT INTO public.incidente_produto (id_produto,id_incidente) VALUES
+(4,1)
+,(1,2)
+;
+
+INSERT INTO public.problema (tipo,gravidade,descricao,data_inclusao) VALUES
+('Sensor de airbag muito sensível','gravíssimo','Sensor para acionar o airbag possui muita sensibilidade.','2020-03-16')
+,('Vidro frágil','gravíssimo','Vidro frágil para suportar altas velocidades.','2020-03-16')
+;
+
+INSERT INTO public.risco_acidente (tipo,descricao) VALUES
+('Recall vidro','Possível acidente aos passageiros.')
+,('Recall airbag','Possível prejudicar motorista ao conduzir veículo.')
+;
+
+INSERT INTO public.problema_incidente (id_problema,id_incidente) VALUES
+(1,2)
+,(2,1)
+;
+
+INSERT INTO public.nao_conformidade (tipo,descricao,id_risco_acidente,id_problema) VALUES
+('Veículo','Não apto para utilizar vidros fabricados.',1,2)
+,('Veículo','Não seguro em acidentes',2,NULL)
+;
