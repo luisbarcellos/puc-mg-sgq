@@ -1,0 +1,22 @@
+.col-container {
+    margin-top: 50px;
+}
+
+.col-menu {
+    padding: 1rem;
+    background-color: #33b5e5;
+    border: 2px solid #fff;
+    color: #fff;
+    text-align: center;
+    height: 300px;
+}
+
+.col-menu:hover {
+    top: -4px;
+}
+
+.text-menu {
+    color: #fff;
+    font-size: 25px;
+    text-decoration: none;
+}

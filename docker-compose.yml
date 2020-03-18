@@ -29,7 +29,6 @@ services:
     depends_on:
       - db-sgq
       - mock-service
-    # build: ./incidente-problema-service  #Uso local
     image: luisbarcellos/incidente-problema-service:latest
     ports:
       - "8080:8080"
@@ -43,8 +42,7 @@ services:
       - backend
 
   web:
-    build: ./frontend-module  #Uso local
-    # image: luisbarcellos/frontend-module:latest
+    image: luisbarcellos/frontend-module:latest
     ports:
       - "4200:4200"
     networks:

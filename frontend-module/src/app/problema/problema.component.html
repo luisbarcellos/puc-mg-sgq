@@ -1,4 +1,30 @@
-<nav aria-label="breadcrumb">
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark bg-primary" [containerInside]="false">
+    <mdb-navbar-brand><a class="navbar-brand" href="home">Menu</a></mdb-navbar-brand>
+    <links>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link waves-light" href="home" mdbWavesEffect>Home<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-light" href="produto" mdbWavesEffect>Produto</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-light" href="incidente" mdbWavesEffect>Incidente</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-light" href="problema" mdbWavesEffect>Problema</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-light" href="riscoacidente" mdbWavesEffect>Risco de acidente</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-light" href="naoconformidade" mdbWavesEffect>Não conformidade</a>
+        </li>
+      </ul>
+    </links>
+  </mdb-navbar>
+
+<nav class="container" aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item active" aria-current="page">Gerenciamento de problemas</li>
     </ol>

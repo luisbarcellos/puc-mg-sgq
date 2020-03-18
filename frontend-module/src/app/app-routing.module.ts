@@ -9,6 +9,7 @@ import { NaoConformidadeComponent } from './nao-conformidade/nao-conformidade.co
 
 
 const routes: Routes = [
+  { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'produto', component: ProdutoComponent },
   { path: 'incidente', component: IncidenteComponent },
