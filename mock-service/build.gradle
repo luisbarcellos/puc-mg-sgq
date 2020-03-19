@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+    id "org.springframework.boot" version "2.1.7.RELEASE"
+}
+
+group 'br.com.sgq'
+version '1.0.0'
+
+sourceCompatibility = '1.11'
+compileJava.options.encoding = 'UTF-8'
+
+apply from: "$rootProject.projectDir/gradle/scripts/repositories.gradle"
+apply from: "$rootProject.projectDir/gradle/scripts/versions.gradle"
+apply from: "$rootProject.projectDir/gradle/scripts/spring-boot.gradle"
+apply from: "$rootProject.projectDir/gradle/scripts/lombok.gradle"
+
+dependencies {
+    implementation "io.springfox:springfox-swagger2:${swaggerVersion}"
+    implementation "io.springfox:springfox-swagger-ui:${swaggerVersion}"
+    implementation ("jakarta.xml.bind:jakarta.xml.bind-api:2.3.2")
+
+    testImplementation 'junit:junit:4.12'
+}

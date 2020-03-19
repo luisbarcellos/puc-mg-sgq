@@ -1,0 +1,6 @@
+ext {
+    set('lombokVersion', "1.18.8")
+    set('swaggerVersion', '2.8.0')
+    set('encoding', "UTF-8")
+    set('springVersion', "2.1.7.RELEASE")
+}
