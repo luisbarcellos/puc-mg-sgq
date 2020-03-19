@@ -4,6 +4,13 @@ Esse repositório possui o código fonte da POC(prova de conveito) do trabalho d
 ## Escopo do projeto
 O escopo do projeto escolhido para o TCC foi o de Sistema de Gestão de Qualidade, voltado ao ramo automotivo.
 
+## Descrição do projeto
+O projeto é composto por 3 módulos armazenados de forma distribuída, em diferentes repositórios, e uma base de dados que subirá sepado em um docker.
+* [Módulo Front End](https://github.com/luisbarcellos/frontend-module)
+* [Módulo de Incidentes e Problemas](https://github.com/luisbarcellos/incidente-problema-service)
+* [Módulo com Mock para Normas](https://github.com/luisbarcellos/mock-service)
+
+
 ## Tecnologias utilizadas
 
 ### Backend
@@ -20,6 +27,10 @@ O escopo do projeto escolhido para o TCC foi o de Sistema de Gestão de Qualidad
 * [Bootstrap](https://getbootstrap.com/)
 * [Nodejs](https://nodejs.org/en/)
 * [Npm](https://www.npmjs.com/)
+
+### Ambiente
+
+* [Docker](https://www.docker.com/)
 
 ## Executando a aplicação
 
