@@ -2,42 +2,29 @@ package br.com.sgq.norma.v1.impl.service;
 
 import br.com.sgq.norma.v1.impl.model.NormaModel;
 import lombok.AllArgsConstructor;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
 @AllArgsConstructor
 @Service
-public class NormaService {
+public class NormaService{
+    private static final String URL_MOCK_SERVICE = "http://localhost:8081/mock-service/v1/normas";
 
-    public void inserir(NormaModel normaModel) {
-    }
-
-    public void atualizar(Long idNorma, NormaModel normaModel) {
-//            buscar(idNorma);
-//            normaRepository.atualizar(idNorma, normaModel);
-    }
-
-    public void atualizarNaoConformidade(Long idNorma, Long idNaoConformidade) {
-//            buscar(idNorma);
-//            normaRepository.atualizarNaoConformidade(idNorma, idNaoConformidade);
-    }
+    private RestTemplate restTemplate;
 
     public NormaModel buscar(Long idNorma) {
         return null;
-//        return normaRepository.findById(idNorma)
-//                .orElseThrow(() -> new NotFoundException(MESSAGE_NOT_FOUND));
+//        Mock para buscar uma norma
     }
 
     public List<NormaModel> buscarTodos() {
-        return null;
-    }
-
-    public void deletar(Long idProduto) {
-//        try {
-//            normaRepository.deleteById(idProduto);
-//        } catch (EmptyResultDataAccessException e) {
-//            throw new NotFoundException(MESSAGE_NOT_FOUND);
-//        }
+        return restTemplate.exchange(URL_MOCK_SERVICE,
+                                     HttpMethod.GET,
+                                    null,
+                                    new ParameterizedTypeReference<List<NormaModel>>() {}).getBody();
     }
 }

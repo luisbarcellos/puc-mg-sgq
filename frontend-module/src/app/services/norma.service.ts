@@ -8,7 +8,7 @@ import { Norma } from '../models/norma';
   providedIn: 'root'
 })
 export class NormaService {
-  url = 'http://localhost:8081/mock-service/v1/normas';
+  url = 'http://localhost:8080/incidente-problema-service/v1/normas';
 
   // injetando o HttpClient
   constructor(private httpClient: HttpClient) { }
@@ -31,33 +31,6 @@ export class NormaService {
     return this.httpClient.get<Norma>(this.url + '/' + id)
       .pipe(
         retry(2),
-        catchError(this.handleError)
-      )
-  }
-
-  // salva uma norma
-  saveNorma(norma: Norma): Observable<Norma> {
-    return this.httpClient.post<Norma>(this.url, JSON.stringify(norma), this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      )
-  }
-
-  // atualiza uma norma
-  updateIncidente(norma: Norma): Observable<Norma> {
-    return this.httpClient.put<Norma>(this.url + '/' + norma.idNorma, JSON.stringify(norma), this.httpOptions)
-      .pipe(
-        retry(1),
-        catchError(this.handleError)
-      )
-  }
-
-  // deleta uma norma
-  deleteNorma(idNorma: number) {
-    return this.httpClient.delete<Norma>(this.url + '/' + idNorma, this.httpOptions)
-      .pipe(
-        retry(1),
         catchError(this.handleError)
       )
   }
