@@ -37,3 +37,5 @@ O projeto é composto por 3 módulos armazenados de forma distribuída, em difer
 1. Necessário possuir instalado no equipamento a tecnologia [docker](https://www.docker.com/).
 2. Baixar o arquivo docker-compose.yml deste repositório e executar o comando: docker-compose up
 3. A aplicação poderá ser acessada através da URL: http://localhost:4200/
+4. A documentação do módulo de incidentes e problemas poderá ser acessada através da URL: http://localhost:8080/incidente-problema-service/swagger-ui.html
+5. A documentação do módulo de mock de normas poderá ser acessada através da URL: http://localhost:8081/mock-service/swagger-ui.html
