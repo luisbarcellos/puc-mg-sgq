@@ -38,6 +38,7 @@ services:
       TCC_DB_USER: postgres
       TCC_DB_PASSWORD: sgq123
       APP_NAME: incidente-problema-service
+      MOCK_APP_NAME: mock-service
     networks:
       - backend
 
