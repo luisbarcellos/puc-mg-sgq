@@ -22,7 +22,7 @@
     "@ng-bootstrap/ng-bootstrap": "^6.0.2",
     "angular-bootstrap-md": "^8.10.1",
     "bootstrap": "^4.4.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "minimist": "^1.2.3",
     "npm": "^6.14.4",
     "rxjs": "^6.5.5",
